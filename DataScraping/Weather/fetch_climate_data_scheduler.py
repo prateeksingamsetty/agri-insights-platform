@@ -49,7 +49,8 @@ def fetch_and_append():
 
     try:
         # Connect to MongoDB
-        client = pymongo.MongoClient('mongodb://192.168.0.106:27017/')
+        connection_string = "mongodb+srv://prateek:Prateek2606@cluster0.bdxk2dg.mongodb.net/"
+        client = pymongo.MongoClient(connection_string)
         db = client['Agri_Insights']
         collection = db['weatherData']
 
