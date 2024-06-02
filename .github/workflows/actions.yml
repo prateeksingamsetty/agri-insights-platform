@@ -25,4 +25,4 @@ jobs:
 
       - name: Run script
         run: |
-          python your_script.py  # Update with the actual path to your script
+          python /DataScraping/Weather/fetch_climate_data_scheduler.py  # Update with the actual path to your script
