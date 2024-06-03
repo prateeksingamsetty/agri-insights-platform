@@ -6,8 +6,6 @@ import os
 
 mongodb_username = os.getenv("MONGODB_USERNAME")
 mongodb_password = os.getenv("MONGODB_PASSWORD")
-print("mongodb_username ",mongodb_username)
-print("mongodb_password ", mongodb_password)
 
 # Calculate the date range for the past 7 days
 today = date.today()
@@ -55,7 +53,6 @@ def fetch_and_append():
 
     try:
         # Connect to MongoDB
-        # connection_string = "mongodb+srv://${mongodb_username}:${mongodb_password}@cluster0.bdxk2dg.mongodb.net/"
         connection_string = f"mongodb+srv://{mongodb_username}:{mongodb_password}@cluster0.bdxk2dg.mongodb.net/"
         client = pymongo.MongoClient(connection_string)
         db = client['Agri_Insights']
