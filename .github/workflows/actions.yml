@@ -2,7 +2,7 @@ name: Weekly Weather Data Workflow
 
 on:
   schedule:
-    - cron: "55 11 * * 1" # Runs at 11:55 PM every Monday
+    - cron: "55 3 * * 1" # Runs at 11:55 PM EST every Monday -> The given expression is time in UTC
   workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
