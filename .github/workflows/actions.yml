@@ -2,7 +2,7 @@ name: Weekly Weather Data Workflow
 
 on:
   schedule:
-    - cron: "*/2 * * * *" # Runs at 11:55 PM every Monday
+    - cron: "*/5 * * * *" # Runs at 11:55 PM every Monday
   workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
