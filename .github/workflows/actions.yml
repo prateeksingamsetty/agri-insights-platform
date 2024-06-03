@@ -2,7 +2,7 @@ name: Run Python Script Weekly
 
 on:
   schedule:
-    - cron: "32 06* * *" # Runs at 11:59 PM every Sunday
+    - cron: "33 6* * *" # Runs at 11:59 PM every Sunday
   workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
