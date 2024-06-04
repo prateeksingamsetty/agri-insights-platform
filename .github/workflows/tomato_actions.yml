@@ -23,6 +23,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install pymongo
           pip install dnspython
+          pip install pandas
+          pip install selenium
 
       - name: Prepare Selenium
         # https://github.com/marketplace/actions/setup-chromedriver
