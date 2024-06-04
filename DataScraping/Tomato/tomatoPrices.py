@@ -89,6 +89,8 @@ def click_button_with_retry(button_locator, retries=3):
         try:
             button = wait.until(EC.element_to_be_clickable(button_locator))
             button.click()
+            print("List of files ",os.listdir())
+            print("Current directory ", os.getcwd())
             return
         except (StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException, TimeoutException):
             retries -= 1
