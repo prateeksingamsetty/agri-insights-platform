@@ -135,7 +135,8 @@ if platform.system() == 'Linux':
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
 
-driver = webdriver.Chrome(executable_path=CHROME_DRIVER_PATH, options=options)
+# driver = webdriver.Chrome(executable_path=CHROME_DRIVER_PATH, options=options)
+driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 20)
 
 try:
