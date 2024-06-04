@@ -24,7 +24,7 @@ if platform.system() == 'Windows':
     DOWNLOAD_PATH = "C:\\Users\\hp\\Downloads"
 elif platform.system() == 'Linux':
     CHROME_DRIVER_PATH = "/usr/local/bin/chromedriver"
-    DOWNLOAD_PATH = "/usr"
+    DOWNLOAD_PATH = "/home/runner/downloads"
 else:
     raise OSError("Unsupported operating system.")
 
@@ -89,7 +89,7 @@ def click_button_with_retry(button_locator, retries=3):
         try:
             button = wait.until(EC.element_to_be_clickable(button_locator))
             button.click()
-            os.chdir("/usr")
+            os.chdir("/home/runner")
             print("List of files ",os.listdir())
             print("Current directory ", os.getcwd())
             return
@@ -132,7 +132,7 @@ def push_data_to_mongodb(data, db_name, collection_name, connection_string):
 # Main script
 
 options = webdriver.ChromeOptions()
-prefs = {"download.default_directory": "/usr"}  # Adjust path
+prefs = {"download.default_directory": "/home/runner/downloads"}  # Adjust path
 options.add_experimental_option("prefs", prefs)
 
 # Run Chrome in headless mode if on Linux
