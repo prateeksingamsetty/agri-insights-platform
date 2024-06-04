@@ -1,4 +1,4 @@
-name: Weekly Weather Data Workflow
+name: Weekly Tomato Prices Data Workflow
 
 on:
   schedule:
