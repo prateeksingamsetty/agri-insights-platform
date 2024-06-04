@@ -132,6 +132,8 @@ def push_data_to_mongodb(data, db_name, collection_name, connection_string):
 # Main script
 
 options = webdriver.ChromeOptions()
+prefs = {"download.default_directory": "/home"}  # Adjust path
+options.add_experimental_option("prefs", prefs)
 
 # Run Chrome in headless mode if on Linux
 if platform.system() == 'Linux':
