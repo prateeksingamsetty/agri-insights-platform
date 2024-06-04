@@ -9,7 +9,7 @@ mongodb_password = os.getenv("MONGODB_PASSWORD")
 
 # Calculate the date range for the past 7 days
 today = date.today()
-seven_days_ago = today - timedelta(days=7)
+seven_days_ago = today - timedelta(days=6)
 
 today_str = today.strftime("%Y-%m-%d")
 seven_days_ago_str = seven_days_ago.strftime("%Y-%m-%d")
