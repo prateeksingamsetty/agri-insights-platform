@@ -167,6 +167,7 @@ try:
     input_date_element = wait.until(EC.presence_of_element_located(
         (By.ID, "from-date-by-market-types-section-2")))
     today = date.today()
+    print("today ", today)
     today_str = today.strftime("%m/%d/%Y")
     input_date_element.send_keys(today_str)
     input_date_element.send_keys(Keys.RETURN)
@@ -174,6 +175,7 @@ try:
     input_date_element = wait.until(EC.presence_of_element_located(
         (By.ID, "to-date-by-market-types-section-2")))
     seven_days_ago = today - timedelta(days=6)
+    print("seven_days_ago ", seven_days_ago)
     seven_days_ago_str = seven_days_ago.strftime("%m/%d/%Y")
     input_date_element.send_keys(seven_days_ago_str)
     input_date_element.send_keys(Keys.RETURN)
