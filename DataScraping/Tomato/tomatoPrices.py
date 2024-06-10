@@ -30,8 +30,8 @@ else:
 mongodb_username = os.getenv("MONGODB_USERNAME")
 mongodb_password = os.getenv("MONGODB_PASSWORD")
 
-# MONGODB_CONNECTION_STRING = f"mongodb+srv://{mongodb_username}:{mongodb_password}@cluster0.bdxk2dg.mongodb.net/"
-MONGODB_CONNECTION_STRING = "mongodb://localhost:27017/"
+MONGODB_CONNECTION_STRING = f"mongodb+srv://{mongodb_username}:{
+    mongodb_password}@cluster0.bdxk2dg.mongodb.net/"
 
 # Functions
 
