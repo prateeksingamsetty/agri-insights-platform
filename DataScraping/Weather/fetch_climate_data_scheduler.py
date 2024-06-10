@@ -1,6 +1,7 @@
 import urllib.request
 import json
 from datetime import date, timedelta
+import certifi
 import pymongo
 import os
 
@@ -17,10 +18,12 @@ seven_days_ago_str = seven_days_ago.strftime("%Y-%m-%d")
 # Construct the URL for the API request
 url = (
     f"https://api.climate.ncsu.edu/data?loc=FLET&var=airtempavg,rhavg2m,precip1m,leafwetness,wbgtavg2m"
-    f"&start={seven_days_ago_str}%2000:00&end={today_str}%2023:59&int=1%20HOUR&obtype=H&output=json"
+    f"&start={seven_days_ago_str}%2000:00&end={
+        today_str}%2023:59&int=1%20HOUR&obtype=H&output=json"
     f"&attr=location,datetime,var,value,unit,paramtype,obnum,obavail,obtime,obmin,obmax,pdstart,pdend"
     f"&hash=faae25b731f480f916263f954ef7e3ea9ee5897d"
 )
+
 
 def fetch_and_append():
     """
@@ -53,8 +56,10 @@ def fetch_and_append():
 
     try:
         # Connect to MongoDB
-        connection_string = f"mongodb+srv://{mongodb_username}:{mongodb_password}@cluster0.bdxk2dg.mongodb.net/"
-        client = pymongo.MongoClient(connection_string)
+        connection_string = f"mongodb+srv://{mongodb_username}:{
+            mongodb_password}@cluster0.bdxk2dg.mongodb.net/"
+        client = pymongo.MongoClient(
+            connection_string, tlsCAFile=certifi.where())
         db = client['Agri_Insights']
         collection = db['weatherData']
 
@@ -83,7 +88,6 @@ def fetch_and_append():
         # Ensure the MongoDB connection is closed
         client.close()
 
-    print("Done")
 
 if __name__ == "__main__":
     fetch_and_append()

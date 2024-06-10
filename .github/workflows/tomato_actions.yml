@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9 # Specify the required Python version
+          python-version: 3.12 # Specify the required Python version
 
       - name: Install dependencies
         run: |
@@ -25,9 +25,9 @@ jobs:
           pip install dnspython
           pip install pandas
           pip install selenium
+          pip install certifi
 
       - name: Prepare Selenium
-        # https://github.com/marketplace/actions/setup-chromedriver
         uses: nanasess/setup-chromedriver@master
 
       - name: Run script
