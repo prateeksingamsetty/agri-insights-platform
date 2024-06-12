@@ -129,6 +129,7 @@ def push_data_to_mongodb(data, db_name, collection_name, connection_string):
         db = client[db_name]
         collection = db[collection_name]
         collection.insert_many(data)
+        print(f"Inserted {len(data)} documents into MongoDB")
         print("Data inserted successfully into MongoDB.")
     except pymongo.errors.ConnectionFailure as e:
         print(f"Failed to connect to MongoDB: {e}")
