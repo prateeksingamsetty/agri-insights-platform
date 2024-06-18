@@ -17,6 +17,7 @@ from selenium.common.exceptions import (
     ElementClickInterceptedException,
     ElementNotInteractableException,
     TimeoutException,
+    NoSuchElementException
 )
 
 # Constants
@@ -61,6 +62,35 @@ def select_dropdown_option(main_div_id, option_to_be_selected):
             time.sleep(2)
 
 
+# def select_multiple_dropdown_options(main_div_id, options_to_be_selected):
+#     """Select multiple options from dropdown."""
+#     options_to_select = list(options_to_be_selected.keys())
+#     selected_options = 0
+#     retries = 3
+
+#     while selected_options < len(options_to_select):
+#         try:
+#             div_element = wait.until(
+#                 EC.element_to_be_clickable((By.ID, main_div_id)))
+#             div_element.click()
+#             dropdown_options = wait.until(EC.visibility_of_all_elements_located(
+#                 (By.CSS_SELECTOR, f"#{main_div_id} .chosen-results li")))
+
+#             for option in dropdown_options:
+#                 if option.text in options_to_be_selected and options_to_be_selected[option.text]:
+#                     options_to_be_selected[option.text] = False
+#                     option.click()
+#                     selected_options += 1
+#                     if selected_options == len(options_to_select):
+#                         return
+#                     time.sleep(1)
+#                     break
+#         except (StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException, TimeoutException):
+#             retries -= 1
+#             if retries == 0:
+#                 raise
+#             time.sleep(2)
+
 def select_multiple_dropdown_options(main_div_id, options_to_be_selected):
     """Select multiple options from dropdown."""
     options_to_select = list(options_to_be_selected.keys())
@@ -75,16 +105,36 @@ def select_multiple_dropdown_options(main_div_id, options_to_be_selected):
             dropdown_options = wait.until(EC.visibility_of_all_elements_located(
                 (By.CSS_SELECTOR, f"#{main_div_id} .chosen-results li")))
 
+            option_found = False
             for option in dropdown_options:
                 if option.text in options_to_be_selected and options_to_be_selected[option.text]:
                     options_to_be_selected[option.text] = False
                     option.click()
                     selected_options += 1
-                    if selected_options == len(options_to_select):
-                        return
+                    option_found = True
                     time.sleep(1)
                     break
+
+            if not option_found:
+                # Option not found, remove it from the list
+                for option_text in options_to_select:
+                    if options_to_be_selected[option_text]:
+                        print(f"Option '{option_text}' not found, skipping.")
+                        options_to_be_selected[option_text] = False
+                        selected_options += 1
+                        break
+
+            if selected_options == len(options_to_select):
+                return
+
         except (StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException, TimeoutException):
+            retries -= 1
+            if retries == 0:
+                raise
+            time.sleep(2)
+        except NoSuchElementException:
+            print(f"Dropdown or options not found for ID '{
+                  main_div_id}', retrying...")
             retries -= 1
             if retries == 0:
                 raise
@@ -129,8 +179,7 @@ def push_data_to_mongodb(data, db_name, collection_name, connection_string):
         db = client[db_name]
         collection = db[collection_name]
         collection.insert_many(data)
-        print(f"Inserted {len(data)} documents into MongoDB")
-        print("Data inserted successfully into MongoDB.")
+        print(f"Successfully inserted {len(data)} documents into MongoDB")
     except pymongo.errors.ConnectionFailure as e:
         print(f"Failed to connect to MongoDB: {e}")
     except pymongo.errors.InvalidName as e:
