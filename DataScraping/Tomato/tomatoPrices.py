@@ -62,35 +62,6 @@ def select_dropdown_option(main_div_id, option_to_be_selected):
             time.sleep(2)
 
 
-# def select_multiple_dropdown_options(main_div_id, options_to_be_selected):
-#     """Select multiple options from dropdown."""
-#     options_to_select = list(options_to_be_selected.keys())
-#     selected_options = 0
-#     retries = 3
-
-#     while selected_options < len(options_to_select):
-#         try:
-#             div_element = wait.until(
-#                 EC.element_to_be_clickable((By.ID, main_div_id)))
-#             div_element.click()
-#             dropdown_options = wait.until(EC.visibility_of_all_elements_located(
-#                 (By.CSS_SELECTOR, f"#{main_div_id} .chosen-results li")))
-
-#             for option in dropdown_options:
-#                 if option.text in options_to_be_selected and options_to_be_selected[option.text]:
-#                     options_to_be_selected[option.text] = False
-#                     option.click()
-#                     selected_options += 1
-#                     if selected_options == len(options_to_select):
-#                         return
-#                     time.sleep(1)
-#                     break
-#         except (StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException, TimeoutException):
-#             retries -= 1
-#             if retries == 0:
-#                 raise
-#             time.sleep(2)
-
 def select_multiple_dropdown_options(main_div_id, options_to_be_selected):
     """Select multiple options from dropdown."""
     options_to_select = list(options_to_be_selected.keys())
@@ -214,20 +185,27 @@ try:
     select_dropdown_option(
         "aggregate_by_market_types_section_2_chosen", "Weekly")
 
-    input_date_element = wait.until(EC.presence_of_element_located(
-        (By.ID, "from-date-by-market-types-section-2")))
+    # Today or current Day
     today = date.today()
     print("today ", today)
     today_str = today.strftime("%m/%d/%Y")
-    input_date_element.send_keys(today_str)
-    input_date_element.send_keys(Keys.RETURN)
 
-    input_date_element = wait.until(EC.presence_of_element_located(
-        (By.ID, "to-date-by-market-types-section-2")))
+    # Seven days ago
     seven_days_ago = today - timedelta(days=6)
     print("seven_days_ago ", seven_days_ago)
     seven_days_ago_str = seven_days_ago.strftime("%m/%d/%Y")
+
+    # For from date, i.e., 7 days ago
+    input_date_element = wait.until(EC.presence_of_element_located(
+        (By.ID, "from-date-by-market-types-section-2")))
     input_date_element.send_keys(seven_days_ago_str)
+    input_date_element.send_keys(Keys.RETURN)
+
+    # For to data, i.e., current date or todays date
+    input_date_element = wait.until(EC.presence_of_element_located(
+        (By.ID, "to-date-by-market-types-section-2")))
+
+    input_date_element.send_keys(today_str)
     input_date_element.send_keys(Keys.RETURN)
 
     select_multiple_dropdown_options(
