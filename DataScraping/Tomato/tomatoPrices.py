@@ -170,21 +170,21 @@ options.add_experimental_option("prefs", prefs)
 
 # Run Chrome in headless mode if on Linux
 if platform.system() == 'Linux':
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
 
 driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 20)
 
-# Setup your driver (ensure you are using the correct download path)
-driver.get("https://mymarketnews.ams.usda.gov/public_data")
 
-# Wait for the page to load and take a screenshot
-driver.save_screenshot('before_click.png')
-print("Screenshot taken before attempting to click 'market-tab'.")
 
 try:
-    # driver.get("https://mymarketnews.ams.usda.gov/public_data")
+    # Setup your driver (ensure you are using the correct download path)
+    driver.get("https://mymarketnews.ams.usda.gov/public_data")
+    
+    # Wait for the page to load and take a screenshot
+    driver.save_screenshot('before_click.png')
+    print("Screenshot taken before attempting to click 'market-tab'.")
 
     market_tab = wait.until(EC.element_to_be_clickable((By.ID, "market-tab")))
     market_tab.click()
