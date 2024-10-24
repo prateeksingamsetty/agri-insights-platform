@@ -19,7 +19,6 @@ from selenium.common.exceptions import (
     TimeoutException,
     NoSuchElementException
 )
-from selenium.webdriver.firefox.options import Options
 
 # Constants
 if platform.system() == 'Windows':
@@ -164,24 +163,16 @@ def push_data_to_mongodb(data, db_name, collection_name, connection_string):
 
 # Main script
 
-
-# options = webdriver.ChromeOptions()
-# prefs = {"download.default_directory": "/home/runner/downloads"}  # Adjust path
-# options.add_experimental_option("prefs", prefs)
-
-# Set up options for Firefox
-options = Options()
-options.headless = True  # Enable headless mode for Firefox (useful for GitHub Actions)
+options = webdriver.ChromeOptions()
+prefs = {"download.default_directory": "/home/runner/downloads"}  # Adjust path
+options.add_experimental_option("prefs", prefs)
 
 # Run Chrome in headless mode if on Linux
-# if platform.system() == 'Linux':
-#     options.add_argument("--headless")
-#     options.add_argument("--no-sandbox")
+if platform.system() == 'Linux':
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
 
-# driver = webdriver.Chrome(options=options)
-# wait = WebDriverWait(driver, 20)
-
-driver = webdriver.Firefox(options=options)
+driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 20)
 
 try:
