@@ -165,13 +165,12 @@ def push_data_to_mongodb(data, db_name, collection_name, connection_string):
 
 
 options = webdriver.ChromeOptions()
-options.add_argument("--disable-http2")
 prefs = {"download.default_directory": "/home/runner/downloads"}  # Adjust path
 options.add_experimental_option("prefs", prefs)
 
 # Run Chrome in headless mode if on Linux
 if platform.system() == 'Linux':
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
     options.add_argument("--no-sandbox")
 
 driver = webdriver.Chrome(options=options)
