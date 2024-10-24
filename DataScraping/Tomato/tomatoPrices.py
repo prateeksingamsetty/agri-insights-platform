@@ -174,12 +174,20 @@ if platform.system() == 'Linux':
     options.add_argument("--no-sandbox")
 
 driver = webdriver.Chrome(options=options)
-wait = WebDriverWait(driver, 20)
+# wait = WebDriverWait(driver, 20)
+wait = WebDriverWait(driver, 30)
 
 try:
     driver.get("https://mymarketnews.ams.usda.gov/public_data")
 
-    market_tab = wait.until(EC.element_to_be_clickable((By.ID, "market-tab")))
+    # market_tab = wait.until(EC.element_to_be_clickable((By.ID, "market-tab")))
+    # market_tab.click()
+
+    # Wait until the element is present in the DOM
+    market_tab = wait.until(EC.presence_of_element_located((By.ID, "market-tab")))
+    
+    # Ensure the element is visible before clicking
+    market_tab = wait.until(EC.visibility_of_element_located((By.ID, "market-tab")))
     market_tab.click()
 
     select_dropdown_option(
