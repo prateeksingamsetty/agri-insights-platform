@@ -229,6 +229,10 @@ try:
     #                      "tomatoPrices", MONGODB_CONNECTION_STRING)
     push_data_to_mongodb(json_data, "Agri_Insights",
                          "tomatoprices", MONGODB_CONNECTION_STRING)
+except Exception as e:
+    # Capture the error and take another screenshot
+    driver.save_screenshot('error_screenshot.png')
+    print(f"Error: {str(e)}")
 
 finally:
     driver.quit()
