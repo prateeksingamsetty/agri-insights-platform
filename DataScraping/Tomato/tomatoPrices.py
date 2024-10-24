@@ -179,6 +179,9 @@ wait = WebDriverWait(driver, 20)
 try:
     driver.get("https://mymarketnews.ams.usda.gov/public_data")
 
+    # Wait for the page to load and take a screenshot before the issue occurs
+    driver.save_screenshot('before_click.png')
+
     market_tab = wait.until(EC.element_to_be_clickable((By.ID, "market-tab")))
     market_tab.click()
 
