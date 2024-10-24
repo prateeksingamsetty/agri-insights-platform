@@ -176,11 +176,15 @@ if platform.system() == 'Linux':
 driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 20)
 
-try:
-    driver.get("https://mymarketnews.ams.usda.gov/public_data")
+# Setup your driver (ensure you are using the correct download path)
+driver.get("https://mymarketnews.ams.usda.gov/public_data")
 
-    # Wait for the page to load and take a screenshot before the issue occurs
-    driver.save_screenshot('before_click.png')
+# Wait for the page to load and take a screenshot
+driver.save_screenshot('before_click.png')
+print("Screenshot taken before attempting to click 'market-tab'.")
+
+try:
+    # driver.get("https://mymarketnews.ams.usda.gov/public_data")
 
     market_tab = wait.until(EC.element_to_be_clickable((By.ID, "market-tab")))
     market_tab.click()
@@ -230,9 +234,10 @@ try:
     push_data_to_mongodb(json_data, "Agri_Insights",
                          "tomatoprices", MONGODB_CONNECTION_STRING)
 except Exception as e:
-    # Capture the error and take another screenshot
+    # Capture the error and take a screenshot
     driver.save_screenshot('error_screenshot.png')
-    print(f"Error: {str(e)}")
-
+    print("Error: Timeout while trying to click 'market-tab'. Screenshot saved.")
+    raise e  # Re-raise the exception to mark failure4
+    
 finally:
     driver.quit()
