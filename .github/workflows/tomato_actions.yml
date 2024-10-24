@@ -27,6 +27,12 @@ jobs:
           pip install selenium
           pip install certifi
 
+      - name: Install Firefox
+        run: sudo apt-get install -y firefox  # Install Firefox
+
+      - name: Set up Geckodriver for Firefox
+        run: sudo apt-get install -y firefox-geckodriver  # Install Geckodriver (Firefox WebDriver)
+
       - name: Prepare Selenium
         uses: nanasess/setup-chromedriver@master
 
