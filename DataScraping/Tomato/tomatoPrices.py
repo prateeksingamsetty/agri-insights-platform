@@ -31,8 +31,9 @@ else:
 mongodb_username = os.getenv("MONGODB_USERNAME")
 mongodb_password = os.getenv("MONGODB_PASSWORD")
 
-MONGODB_CONNECTION_STRING = f"mongodb+srv://{mongodb_username}:{
-    mongodb_password}@cluster0.bdxk2dg.mongodb.net/"
+# MONGODB_CONNECTION_STRING = f"mongodb+srv://{mongodb_username}:{
+#     mongodb_password}@cluster0.bdxk2dg.mongodb.net/"
+MONGODB_CONNECTION_STRING = f"mongodb://localhost:27017/"
 
 # Functions
 
@@ -145,8 +146,10 @@ def convert_csv_to_json(download_path):
 def push_data_to_mongodb(data, db_name, collection_name, connection_string):
     """Push data to MongoDB."""
     try:
+        # client = pymongo.MongoClient(
+        #     connection_string, tlsCAFile=certifi.where())
         client = pymongo.MongoClient(
-            connection_string, tlsCAFile=certifi.where())
+            connection_string)
         db = client[db_name]
         collection = db[collection_name]
         collection.insert_many(data)
@@ -219,8 +222,10 @@ try:
     time.sleep(5)
 
     json_data = convert_csv_to_json(DOWNLOAD_PATH)
+    # push_data_to_mongodb(json_data, "Agri_Insights",
+    #                      "tomatoPrices", MONGODB_CONNECTION_STRING)
     push_data_to_mongodb(json_data, "Agri_Insights",
-                         "tomatoPrices", MONGODB_CONNECTION_STRING)
+                         "tomatoprices", MONGODB_CONNECTION_STRING)
 
 finally:
     driver.quit()
