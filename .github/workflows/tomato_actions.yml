@@ -36,3 +36,13 @@ jobs:
         env:
           MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
           MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+        continue-on-error: true  # Continue even if the script fails to allow screenshot upload
+
+      - name: Upload screenshots if script fails
+        if: failure()  # Only upload if the script fails
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: |
+            before_click.png
+            error_screenshot.png
