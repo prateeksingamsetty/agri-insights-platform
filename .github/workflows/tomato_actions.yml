@@ -36,7 +36,7 @@ jobs:
         env:
           MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
           MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
-        continue-on-error: true  # Continue even if the script fails to allow screenshot upload
+        continue-on-error: false 
 
       - name: Upload screenshots if script fails
         if: failure()  # Only upload if the script fails
