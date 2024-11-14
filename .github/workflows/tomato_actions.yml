@@ -26,6 +26,7 @@ jobs:
           pip install pandas
           pip install selenium
           pip install certifi
+          pip install requests
 
       - name: Prepare Selenium
         uses: nanasess/setup-chromedriver@master
