@@ -242,13 +242,13 @@
 import requests
 
 try:
-    response = requests.get("https://www.google.com")
+    response = requests.get("https://www.google.com", timeout=10)
     print(f"Google status: {response.status_code}")
 except Exception as e:
     print(f"Error reaching the website: {e}")
 
 try:
-    response = requests.get("https://mymarketnews.ams.usda.gov/public_data")
+    response = requests.get("https://mymarketnews.ams.usda.gov/public_data", timeout=10)
     print(f"Google status: {response.status_code}")
 except Exception as e:
     print(f"Error reaching the website: {e}")
