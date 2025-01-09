@@ -28,8 +28,10 @@ def number_to_month(month_number):
     return month_names.get(month_number, None)
 
 # Fetch data from both collections
-dairy_prices = list(db.dairyprices.find())
-mailbox_prices = list(db.mailboxappalachianprices.find())
+# dairy_prices = list(db.dairyprices.find())
+# mailbox_prices = list(db.mailboxappalachianprices.find())
+dairy_prices = list(db.DairyPrices.find())
+mailbox_prices = list(db.Appalachian_States.find())
 
 # Debug print to check mailbox data structure
 print("Sample mailbox price document:")
@@ -104,6 +106,7 @@ output_df = output_df.sort_values(['Year', 'Month'])
 
 # Save to CSV
 output_df.to_csv('dairy_prices_output.csv', index=False)
+
 
 # Print summary of data
 print("\nData Summary:")
