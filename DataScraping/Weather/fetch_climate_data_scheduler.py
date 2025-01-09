@@ -1,8 +1,4 @@
 """
-This code was written to fetch the past 5 years weather data i.e., from Jan 1st, 2019 to May 31st, 2024. If anytime you would 
-like to fetch hourly between any specific date range, just change the start and end dates in the url. But you need to generate 
-this your own url from the website https://api.climate.ncsu.edu/
-
 Below are the instructions on how you will be able to fet your own url
 Step 1: First create an account in the above given website
 Step 2: Generate an API Hash key for yourself used in order for authenticate your API request.
